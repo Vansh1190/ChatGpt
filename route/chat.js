@@ -3,11 +3,13 @@ const router = express.Router();
 const { Configuration, OpenAIApi } = require("openai");
 require('dotenv').config()
 
-router.get('/', async(req, res)=>{
+router.post('/', async(req, res)=>{
     console.log(req.headers)
-    if(req.headers.auth != 'givemeaccess'){
+      
+      if(req.headers.origin != 'http://localhost:8100' &&  req.headers.origin != "https://chatuniverse.vercel.app")
+      {
         return res.status(400).send("Error you don't have access")
-    }
+      }
     const configuration = new Configuration({
         organization: "org-5xfr53HrEy5yK3k2PgeruCRT",
         apiKey: process.env.OPENAI_API_KEY,
@@ -22,7 +24,7 @@ router.get('/', async(req, res)=>{
       });
       console.log(req.body)
     //   console.log(completion.data)
-    console.log(completion.data)
+    console.log(completion.data.choices[0], 'respjse')
       res.send(completion.data);
 })
 
