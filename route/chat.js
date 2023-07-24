@@ -13,13 +13,16 @@ router.get('/', async(req, res)=>{
         apiKey: process.env.OPENAI_API_KEY,
     });
     const openai = new OpenAIApi(configuration);
-    const completion = await openai.createCompletion({
-        model: "text-davinci-003",
-        prompt: (req.body.message),
+    const completion = await openai.createChatCompletion({
+        model: "gpt-3.5-turbo-16k",
+        messages: [
+          { role: "user", content: req.body.message } // Add user message to the messages array
+      ],
         temperature:1,
       });
       console.log(req.body)
     //   console.log(completion.data)
+    console.log(completion.data)
       res.send(completion.data);
 })
 
