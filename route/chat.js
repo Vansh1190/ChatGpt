@@ -4,8 +4,6 @@ const { Configuration, OpenAIApi } = require("openai");
 require('dotenv').config()
 
 router.post('/', async(req, res)=>{
-    console.log(req.headers)
-      
       if(req.headers.origin != 'http://localhost:8100' &&  req.headers.origin != "https://chatuniverse.vercel.app")
       {
         return res.status(400).send("Error you don't have access")
@@ -22,9 +20,7 @@ router.post('/', async(req, res)=>{
       ],
         temperature:1,
       });
-      console.log(req.body)
     //   console.log(completion.data)
-    console.log(completion.data.choices[0], 'respjse')
       res.send(completion.data);
 })
 
