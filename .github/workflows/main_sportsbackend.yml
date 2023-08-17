@@ -45,13 +45,13 @@ jobs:
           name: node-app
 
       - name: 'Deploy to Azure Web App'
+        run: |
+          npm install
         id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
         with:
           app-name: 'sportsbackend'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E0C6041EAB964128B22A6A37C69EE7F6 }}
           package: .
-        run: |
-            node index
+  
           
